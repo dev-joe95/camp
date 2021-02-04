@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CAMP | TODO</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+</head>
+
+<body>
+
+    <body>
+        <header id="header">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container">
+                    <a class="navbar-brand" href="./index.html">
+                        <img src="https://www.buythelogo.com/wp-content/uploads/2019/03/Retro-fire-camp-logo-vector.jpg"
+                            alt="CAMP" width="30" height="30" class="d-inline-block align-top" />
+                        CAMP
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="./todo.html">ToDo</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#about-us">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#our-services">Our Services</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#our-partners">Our Partners</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#contact-us">Contact</a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                            <li class="nav-item my-2">
+                                <a class="btn btn-sm btn-outline-success btn-login text-success me-2"
+                                    aria-current="page" href="#">Log in</a>
+                            </li>
+                            <li class="nav-item my-2">
+                                <a class="btn btn-sm btn-success text-white" href="#">Sign Up</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar End -->
+            <!-- Carousel Start -->
+            <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"></li>
+                    <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"></li>
+                    <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://appicsoftwares.com/public/system/images/slider.jpeg" class="d-block w-100"
+                            alt="..." />
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>First slide label</h5>
+                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://omnas.com/uploads/slider/Layer-2.jpg" class="d-block w-100" alt="..." />
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Second slide label</h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://www.teahub.io/photos/full/88-886169_web-and-mobile-development-company-infographic-web-development.jpg"
+                            class="d-block w-100" alt="..." />
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Third slide label</h5>
+                            <p>
+                                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </a>
+            </div>
+            <!-- Carousel End -->
+        </header>
+        <!-- Start of main page sections -->
+        <main class="container">
+            <div class="my-5">
+                <form action="">
+                    <div class="d-flex align-items-end justify-content-start my-3">
+                        <div class="mb-3>
+                            <label for="toDoInput" class="form-label">Write what will you do</label>
+                            <input type="text" class="form-control" id="toDoInput" placeholder="What will you do ...">
+                        </div>
+                        <div class=" mx-3">
+                            <button id="sumbitBtn" type="submit" class="btn btn-primary">Add Note</button>
+                        </div>
+                    </div>
+                </form>
+                <ul id="notes" class="list-group">
+                    <!-- <li
+                        class="list-group-item d-flex justify-content-between align-items-center">
+                        Cras justo odio
+                        <span class="badge bg-danger rounded-pill"><i class="bi bi-trash-fill"></i></span>
+                    </li> -->
+                </ul>
+            </div>
+        </main>
+        <!-- End of main page sections -->
+        <footer class="bg-dark py-4 text-white">
+            <div class="container">
+                <section class="sitemap">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h3>About Us</h3>
+                            <p>
+                                CAMP Software Solution has started at Hosur in 2009 and
+                                registered in 2015 at Cairo, has cross-functional alliance with
+                                some of the most successful technology companies like Almawiz
+                                Technologies Pvt. Ltd., CILICO Microelectronics Ltd., Wipro
+                                Technologies, Google Inc. and Microsoft Corporation.
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <h3>Sitemap</h3>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">FAQ</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">Our Service</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">Our Partners</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">Contact Us</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">About Company</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">Our Prices</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">Our Blog</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">Our Team</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h3>Contact Us</h3>
+                            <ul class="nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><i class="bi bi-facebook"
+                                            style="color: #3b5998"></i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><i class="bi bi-twitter"
+                                            style="color: #1da1f2"></i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><i class="bi bi-youtube"
+                                            style="color: #ff0000"></i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><i class="bi bi-linkedin"
+                                            style="color: #0077b5"></i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><i class="bi bi-instagram"
+                                            style="color: #fcaf45"></i></a>
+                                </li>
+                            </ul>
+                            <div class="py-4">
+                                <p>
+                                    Location: 13 El Obour Building street, Misr El Gededea, Cairo,
+                                    Egypt
+                                </p>
+                                <p>Call us: +2045145471 - +20113257564</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <hr />
+                <div class="text-center py-4">
+                    Copyright &copy; 2021 CAMP Software Solution Ltd. All Rights Reserved.
+                </div>
+            </div>
+        </footer>
+        <!-- Start of to top button -->
+        <a id="to-top" class="justify-content-center align-items-center text-white" href="#header"><i
+                class="bi bi-chevron-up"></i></a>
+        <!-- Start of to top button -->
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-app.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-analytics.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-database.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+        <script src="js/main.js"></script>
+
+    </body>
+
+</html>
