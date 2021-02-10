@@ -59,4 +59,8 @@ footer .sitemap .row div:nth-of-type(2) a {
 }
 .dashed-line {
   text-decoration: line-through;
+  color: darkgray;
+}
+.text-green {
+  color: lightgreen;
 }

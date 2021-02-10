@@ -31,72 +31,183 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
-/* -------------------------- Retrieve TODO list------------------------------ */
-let noteRef = firebase.database().ref().child("notes/");
+var database = firebase.database();
 
-const notesEle = document.getElementById("notes");
-noteRef.on("child_added", (snap) => {
-  let item = snap.val();
-  const note = document.createElement("li");
-  note.classList.add(
+/* **********************************  */
+
+const todoInput = document.querySelector("#toDoInput");
+const todoButton = document.querySelector("#submitBtn");
+const todoList = document.querySelector("#notes");
+
+todoButton.addEventListener("click", addTodo);
+var dataArray;
+
+//Read Data from the Database
+function readData() {
+  firebase
+    .database()
+    .ref("notes/")
+    .once("value")
+    .then((snap) => {
+      dataArray = Object.values(snap.val());
+      dataKeys = Object.keys(snap.val());
+
+      for (var i = 0; i < dataArray.length; i++) {
+        createLiElements(dataArray[i].text, dataArray[i].finished, dataKeys[i]);
+      }
+    });
+}
+
+readData();
+
+function addTodo(event) {
+  event.preventDefault();
+  if (todoInput.value !== "") {
+    createLiElements(todoInput.value, false);
+    var uniKey = firebase.database().ref().child("toDo").push().key;
+
+    firebase
+      .database()
+      .ref("notes/" + uniKey)
+      .set({
+        text: todoInput.value,
+        finished: false,
+      });
+
+    //reading data from database
+
+    todoInput.value = "";
+  }
+}
+
+function createLiElements(text, finished, eleId) {
+  const newLi = document.createElement("li");
+  newLi.id = eleId;
+  newLi.classList.add(
     "list-group-item",
     "d-flex",
     "justify-content-between",
-    "align-items-center",
-    item.finished ? "dashed-line" : "item"
+    "align-items-center"
   );
-  note.innerText = item.text;
-  note.setAttribute("child-key", snap.key);
-  note.insertAdjacentHTML(
-    "beforeend",
-    `<button id="delete-btn" class="btn badge bg-danger rounded-pill"><i class="bi bi-trash-fill"></i></button>`
-  );
-  note
-    .querySelector("#delete-btn")
-    .addEventListener("click", (e) => deleteNote(e));
-  note.addEventListener("click", (e) => finishNote(e, item));
-  notesEle.appendChild(note);
-});
+  if (finished) {
+    newLi.classList.add("dashed-line");
+  } else {
+    newLi.classList.remove("dashed-line");
+  }
+  newLi.innerText = text;
 
-/* -------------------------- Delete note function ------------------------------ */
-async function deleteNote(e) {
-  var noteId = e.target.getAttribute("child-key");
-  await firebase
-    .database()
-    .ref("notes/" + noteId)
-    .remove()
-    .then(function () {
-      console.log("Remove succeeded.");
-    })
-    .catch(function (error) {
-      console.log("Remove failed: " + error.message);
-    });
-}
-/* ----------------------- Edit note function ------------------------------------- */
+  const newDiv = document.createElement("div");
+  const newButton = document.createElement("button");
+  const deleteButton = document.createElement("button");
+  const editButton = document.createElement("button");
 
-function finishNote(e, item) {
-  firebase
-    .database()
-    .ref()
-    .child("notes/" + e.target.getAttribute("child-key"))
-    .set({
-      note_id: item.note_id,
-      text: item.text,
-      finished: !item.finished,
-    });
-}
-/* ----------------------- Create new note ------------------------------------- */
+  editButton.classList.add("btn");
+  deleteButton.classList.add("btn");
+  newButton.classList.add("btn");
+  newButton.innerHTML = `<i class="bi bi-check2-circle ${
+    finished ? "text-green" : "text-success"
+  } "></i>`;
+  deleteButton.innerHTML = `<i class="bi bi-trash-fill text-danger"></i>`;
+  editButton.innerHTML = `<i class="bi bi-pencil-square text-info"></i>`;
 
-const todoButton = document.querySelector("#sumbitBtn");
-const todoInput = document.querySelector("#toDoInput");
-
-todoButton.addEventListener("click", (e) => {
-  e.preventDefault();
-  const num = Math.random() * 1000;
-  firebase.database().ref().child("notes").push().set({
-    note_id: num,
-    text: todoInput.value,
-    finished: false,
+  newButton.addEventListener("click", function () {
+    this.parentElement.parentElement.classList.toggle("dashed-line");
+    if (this.parentElement.parentElement.classList.contains("dashed-line")) {
+      this.children[0].classList.remove("text-success");
+      this.children[0].classList.add("text-green");
+    } else {
+      this.children[0].classList.remove("text-green");
+      this.children[0].classList.add("text-success");
+    }
+    firebase
+      .database()
+      .ref("notes/" + this.parentElement.parentElement.id)
+      .update({
+        finished: !finished,
+      });
   });
-  todoInput.value = "";
-});
+  deleteButton.addEventListener("click", function () {
+    this.parentElement.parentElement.remove();
+    firebase
+      .database()
+      .ref("notes/" + this.parentElement.parentElement.id)
+      .remove();
+  });
+  editButton.addEventListener("click", function () {
+    todoInput.value = this.parentElement.parentElement.innerText;
+    todoButton.innerText = "Update";
+    firebase
+      .database()
+      .ref("notes/" + this.parentElement.parentElement.id)
+      .update({
+        text: todoInput.value,
+      });
+  });
+  newDiv.appendChild(editButton);
+  newDiv.appendChild(deleteButton);
+  newDiv.appendChild(newButton);
+  newLi.appendChild(newDiv);
+  todoList.appendChild(newLi);
+}
+
+/* -------------------------- Retrieve TODO list------------------------------ */
+// let noteRef = firebase.database().ref("notes/");
+
+// const notesEle = document.getElementById("notes");
+// noteRef.once("value").then( async (snapshot) => {
+//   console.log(snapshot);
+//   let note = snapshot.val();
+//   const noteLi = document.createElement("li");
+//   noteLi.classList.add(
+//     "list-group-item",
+//     "d-flex",
+//     "justify-content-between",
+//     "align-items-center",
+//     note.finished ? "dashed-line" : "item"
+//   );
+//   noteLi.innerText = note.text;
+//   noteLi.setAttribute("child-key", snapshot.key);
+//   noteLi.insertAdjacentHTML(
+//     "beforeend",
+//     `<button id="delete-btn" class="btn badge bg-danger rounded-pill"><i class="bi bi-trash-fill"></i></button>`
+//   );
+//   /* -------------------------- Delete note function ------------------------------ */
+//   noteLi.querySelector("#delete-btn").addEventListener("click", async (e) => {
+//     var noteId = e.target.getAttribute("child-key");
+//     await firebase
+//       .database()
+//       .ref("notes/" + noteId)
+//       .remove()
+//       .then(function () {
+//         console.log("Remove succeeded.");
+//       })
+//       .catch(function (error) {
+//         console.log("Remove failed: " + error.message);
+//       });
+//   });
+//   /* ----------------------- Edit note function ------------------------------------- */
+//   noteLi.addEventListener("click", async (e, item) => {
+//     await firebase
+//       .database()
+//       .ref("notes/" + e.target.getAttribute("child-key"))
+//       .update({
+//         finished: !item.finished,
+//       });
+//     this.classList.toggle("lineThrough");
+//   });
+//   notesEle.appendChild(noteLi);
+// });
+
+// /* ----------------------- Create new note ------------------------------------- */
+
+// // const todoButton = document.querySelector("#sumbitBtn");
+// // const todoInput = document.querySelector("#toDoInput");
+
+// todoButton.addEventListener("click", (e) => {
+//   e.preventDefault();
+//   firebase.database().ref("notes").push().set({
+//     text: todoInput.value,
+//     finished: false,
+//   });
+//   todoInput.value = "";
+// });
